@@ -20,6 +20,7 @@ function App() {
   const [agama, setAgama] = useState("");
   const [tl, setTl] = useState("");
   const [parId, setParId] = useState("");
+  const [getIds, setGetIds] = useState({});
 
   useEffect(() => {
     fetch("https://app-id1.herokuapp.com/id/get")
@@ -55,7 +56,7 @@ function App() {
     console.log(parId);
     fetch("https://app-id1.herokuapp.com/id/get/" + parId)
       .then((res) => res.json())
-      .then((res) => parId(res.data));
+      .then((res) => setGetIds(res.data));
   };
   const editUp = (e) => {
     let formDatas = new FormData();
@@ -84,6 +85,7 @@ function App() {
   };
 
   // console.log(datas);
+  // console.log(getIds);
   return (
     <>
       <h1 style={{ marginLeft: "20px" }}>{title}</h1>
@@ -114,6 +116,13 @@ function App() {
         <input type="text" onChange={(e) => setParId(e.target.value)} />
         <button onClick={getId}>cari!</button>
       </div>
+      <br />
+      <Card
+        foto={getIds.gambar}
+        nama={getIds.nama}
+        agama={getIds.agama}
+        tl={getIds.tanggalLahir}
+      />
       <br />
       <br />
       <h1 style={{ marginLeft: "20px" }}>Data Profile</h1>
